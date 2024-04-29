@@ -3,8 +3,9 @@ import styles from './Form.module.css';
 
 function Form() {
 
-  const [expenseArray, setExpsenseArray] = useState([]);
+  const [expenseArray, setExpenseArray] = useState([]);
   const [expense, setExpense] = useState({});
+
   const expenseTitle = useRef();
   const expenseAmount = useRef();
   const expenseDate = useRef();
@@ -12,11 +13,15 @@ function Form() {
 
   const submitFunction =(e)=>{
     e.preventDefault();
-    const newExpenses = {expenseTitle: expenseTitle.current.value,
-    expenseAmount: expenseAmount.current.value, expenseDate: expenseDate.current.value, expenseCategory: expenseCategory.current.value};
+    const newExpenses = {
+      expenseTitle: expenseTitle.current.value,
+      expenseAmount: expenseAmount.current.value, 
+      expenseDate: expenseDate.current.value, 
+      expenseCategory: expenseCategory.current.value};
+
     setExpense(newExpenses);
-    const newExpenseArray = [...expenseArray, expense];
-    setExpsenseArray(newExpenseArray);
+    // const newExpenseArray = expenseArray;
+    setExpenseArray((prev)=>[...prev, newExpenses]);
   }
 
   return (
@@ -52,14 +57,14 @@ function Form() {
         </form>
 
         <section className={styles.expensesContainer}>
-          <ul>
+          <ul className={styles.expenseList}>
             {expenseArray.map((expense, index)=>{
-              return <div key={index}>
-                <li>{expense.expenseTitle}</li>
-                <li>{expense.expenseAmount}</li>
-                <li>{expense.expenseDate}</li>
-                <li>{expense.expenseCategory}</li>
-              </div>
+              return <li key={index}>
+                <p>{expense.expenseTitle}</p>
+                <p>{expense.expenseAmount}</p>
+                <p>{expense.expenseDate}</p>
+                <p>{expense.expenseCategory}</p>
+              </li>
             })}
           </ul>
         </section>
