@@ -20,8 +20,12 @@ function Form() {
       expenseCategory: expenseCategory.current.value};
 
     setExpense(newExpenses);
-    // const newExpenseArray = expenseArray;
     setExpenseArray((prev)=>[...prev, newExpenses]);
+  }
+
+  const deleteExpense =(indexToRemove)=>{
+    const updateExpenses = expenseArray.filter((_, index)=> index !== indexToRemove);
+    setExpenseArray(updateExpenses);
   }
 
   return (
@@ -53,6 +57,7 @@ function Form() {
               <option value="entertainment">Entertainment</option>
             </select>
           </div>
+
           <button onClick={submitFunction}>Add expense</button>
         </form>
 
@@ -64,6 +69,7 @@ function Form() {
                 <p>{expense.expenseAmount}</p>
                 <p>{expense.expenseDate}</p>
                 <p>{expense.expenseCategory}</p>
+                <button onClick={()=>deleteExpense(index)}>Remove</button>
               </li>
             })}
           </ul>
